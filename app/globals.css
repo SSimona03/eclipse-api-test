@@ -1,0 +1,243 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+  --padding-desktop: 20px;
+  --magenta: #e61577;
+  --purple: #992478;
+  --max-width: 1300px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  width: 100vw;
+  max-width: 100%;
+}
+
+/* Media Desktop > min 1025px */
+
+/********* Navbar **********/
+.navbar {
+  width: 100vw;
+  border-bottom: 2px solid rgb(242, 242, 242, 0.6);
+}
+.nav-container {
+  max-width: var(--max-width);
+  display: flex;
+  padding-left: var(--padding-desktop);
+  padding-right: var(--padding-desktop);
+  justify-content: space-between;
+  margin: auto;
+
+  padding: 20px 0;
+}
+.menu-mobile {
+  display: none;
+}
+.menu-items {
+  display: flex;
+}
+.menu-items > li {
+  margin-right: 20px;
+  font-size: 18px;
+}
+.menu-items > li:hover {
+  cursor: pointer;
+  color: var(--magenta);
+}
+
+/********** Main **********/
+
+/********** Home **********/
+.home-container {
+  max-width: var(--max-width);
+  margin: auto;
+}
+
+/********** product Box **********/
+.box {
+  margin: auto;
+  width: 90%;
+  display: grid;
+  animation: fadeInUp 1s ease-in-out;
+  grid-template-areas:
+    "box-1 box-2 box-4"
+    "box-1 box-3 box-4";
+}
+.box:hover {
+  transform: scale(1.01);
+}
+.box-recommended {
+  -webkit-box-shadow: 0px 2px 14px 1px rgba(230, 21, 119, 0.44);
+  box-shadow: 0px 2px 14px 1px rgba(230, 21, 119, 0.44);
+}
+.recommended {
+  font-size: 10px;
+  border-radius: 0 0 5px 5px;
+}
+
+/* animation boxes */
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.image-box {
+  grid-area: box-1;
+}
+.title-box {
+  grid-area: box-2;
+}
+.info-box {
+  grid-area: box-3;
+}
+.price-box {
+  grid-area: box-4;
+}
+.fa-check {
+  -webkit-text-stroke: 1px;
+}
+.price-cut {
+  position: relative;
+}
+.price-cut::after {
+  content: " ";
+  display: block;
+  width: 90px;
+  border-top: 1px solid #bfbfbf;
+  position: absolute;
+  left: -3px;
+  bottom: 10px;
+  transform: rotate(-5deg);
+}
+.main-price {
+  color: rgba(237, 20, 61, 1);
+  font-weight: 700;
+}
+/********** Stock Bor **********/
+.stock-bar {
+  background-color: #d4d4d8;
+}
+.inStock {
+  width: 20%;
+  height: 5px;
+  background-color: var(--magenta);
+}
+.inStock-full {
+  width: 100%;
+  height: 5px;
+  background-color: green;
+}
+.stock-text {
+  color: var(--magenta);
+}
+
+/********** button buy **********/
+.buy-button {
+  background: linear-gradient(116.7deg, #e61577 9.51%, #992478 95.18%);
+  padding: 10px 20px;
+  border-radius: 20px;
+  letter-spacing: 1px;
+}
+/********** Footer **********/
+footer {
+  width: 100%;
+  border-top: 2px solid rgb(242, 242, 242, 0.6);
+  height: 150px;
+  margin: auto;
+  padding-left: var(--padding-desktop);
+  padding-right: var(--padding-desktop);
+  padding-top: 20px;
+}
+.footer-menu {
+  position: relative;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+.footer-menu > a {
+  margin: 0 40px;
+  font-weight: 500;
+}
+.footer-menu > a:hover {
+  color: var(--magenta);
+}
+
+/* Media Tablet */
+@media only screen and (max-width: 1024px) {
+  body {
+  }
+  /********** Product BOX **********/
+
+  .box {
+    grid-template-areas:
+      "box-2"
+      "box-1"
+      "box-3"
+      "box-4";
+  }
+
+  .info-box-icons,
+  .delivery-info {
+    display: none;
+  }
+}
+
+/********** Media Mobile **********/
+@media only screen and (max-width: 768px) {
+  body {
+  }
+
+  /********** Navbar **********/
+  .menu {
+    width: 100px;
+    position: relative;
+    margin-top: 10px;
+  }
+  .menu-mobile {
+    display: block;
+    cursor: pointer;
+    padding-right: 20px;
+  }
+  .menu-items {
+    display: none;
+    flex-direction: column;
+  }
+  .menu-items > li {
+    font-size: 16px;
+    padding-bottom: 5px;
+  }
+  .menu:hover .menu-items {
+    display: block;
+  }
+  .menu:hover .menu-mobile {
+    display: none;
+  }
+
+  /********** footer **********/
+  .footer-menu {
+    flex-direction: column;
+  }
+  .footer-menu > a {
+    margin: 2px 0px;
+    font-size: 15px;
+  }
+}
