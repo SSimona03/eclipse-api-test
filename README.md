@@ -4,8 +4,6 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 The project is created with React and Javascript in Next13 Framework because I wanted to deploy it in Vercel.
 
-https://eclipse-lg-cards.vercel.app/
-
 For styling I used Tailwind and CSS.
 I could't download the images from Figma so I took one from google and icons are from FontAwsome.
 
