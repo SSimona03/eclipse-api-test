@@ -125,13 +125,13 @@ const Card = ({ arrayData, time }) => {
                                         {" "}
                                         £{newPrice}
                                     </div>
+
+                                    {
+                                        (each.rating == firstCardRating) ? < div className="text-red-600 border w-24 text-center h-5 mt-2  bg-rose-200 rounded text-xs mb-4">
+                                            Save £{discount}  </div> : ""
+
+                                    }
                                 </div>
-                                {
-                                    (each.rating == firstCardRating) ? < div className="text-red-600 border w-24 text-center h-5 mt-5 md:mt-6 bg-rose-200 rounded text-xs mb-4">
-                                        Save £{discount}  </div> : ""
-
-                                }
-
                             </div>
                             {/***** stock ******/}
                             <div className="line-stock mb-5 pt-2">
