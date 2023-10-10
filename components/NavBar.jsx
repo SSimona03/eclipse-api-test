@@ -13,6 +13,7 @@ const Navbar = () => {
                     width={120}
                     height={100}
                     alt="Website Logo"
+                    priority={false}
                 />
                 <div className="menu mt-3">
                     <div className="menu-mobile text-right"><i className=" fa-solid fa-bars fa-lg"></i></div>
