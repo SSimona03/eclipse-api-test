@@ -50,14 +50,18 @@ export default function Home() {
           randomTenProducts.push(withoutApple[number]);
         }
       }
-      setTenProd(randomTenProducts);
+      let arraySortbyRating = randomTenProducts.sort(
+        (a, b) => parseFloat(b.rating) - parseFloat(a.rating)
+      );
+      setTenProd(arraySortbyRating);
     }
   }, [products]);
 
   return (
     <div className=" home-container flex gap-5 flex-col p-5">
       {tenProd && tenProd.length > 0 ? (
-        tenProd.map((prod) => <Card key={prod.id} dataFetcher={prod} />)
+        // tenProd.map((prod) => <Card key={prod.id} arrayData={prod} />)
+        <Card arrayData={tenProd} />
       ) : (
         // You can add a loading indicator or handle the case where displayProducts is falsy
         <p>Loading...</p>

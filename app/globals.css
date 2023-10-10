@@ -81,7 +81,7 @@ body {
 }
 .box-recommended {
   -webkit-box-shadow: 0px 2px 14px 1px rgba(230, 21, 119, 0.44);
-  box-shadow: 0px 2px 14px 1px rgba(230, 21, 119, 0.44);
+  box-shadow: 0px 2px 10px 1px rgba(230, 21, 119, 0.44);
 }
 .recommended {
   font-size: 10px;
@@ -131,7 +131,6 @@ body {
 }
 .main-price {
   color: rgba(237, 20, 61, 1);
-  font-weight: 700;
 }
 /********** Stock Bor **********/
 .stock-bar {
