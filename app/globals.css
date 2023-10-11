@@ -116,7 +116,7 @@ body {
   position: absolute;
   left: -3px;
   bottom: 10px;
-  transform: rotate(-5deg);
+  transform: rotate(-10deg);
 }
 .main-price {
   color: rgba(237, 20, 61, 1);
