@@ -4,7 +4,7 @@ import Image from "next/image";
 import Countdown from 'react-countdown';
 
 
-const REFRESH_TIME = 3 * 60 * 1000; // 3 minutes in miliseconds
+const REFRESH_TIME = 3 * 60 * 1000; // 3 minutes in miliseconds ----  minutes * seconds *  miliseconds
 const FULL_STOCK = 200;
 
 
@@ -89,7 +89,7 @@ const Card = ({ arrayData, time }) => {
                                 }
 
 
-                                <p className="text-xs text-slate-700 pl-2 pt-1">{eachProduct.rating} - XX Reviews</p>
+                                <p className="text-xs text-slate-700 pl-2 pt-1">{eachProduct.rating} - {eachProduct.stock} Reviews</p>
                             </div>
                         </div>
                         {/***** box-three info ******/}
@@ -157,6 +157,7 @@ const Card = ({ arrayData, time }) => {
                                 <div>
                                     {" "}
                                     <i className="fa-solid fa-truck pr-2 "></i>Order in the next{" "}
+                                    {/* time - setCountdownTIme - (time - timeCurrently) */}
                                     <b><Countdown date={Date.now() + REFRESH_TIME - (Date.now() - time)} renderer={renderer} /></b> for delivery on <b>3rd March</b>
                                 </div>
                                 <div className="delivery-info">
@@ -169,7 +170,7 @@ const Card = ({ arrayData, time }) => {
                                     </div>
                                 </div>
                             </div>
-                            {/***** but button ******/}
+                            {/***** button ******/}
                             <button
                                 className="flex buy-button hover:brightness-110 w-full mb-4"
                                 onClick={() =>
