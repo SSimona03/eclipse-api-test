@@ -3,21 +3,10 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
   --padding-desktop: 20px;
   --magenta: #e61577;
   --purple: #992478;
   --max-width: 1300px;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
 }
 
 body {
@@ -25,7 +14,7 @@ body {
   max-width: 100%;
 }
 
-/* Media Desktop > min 1025px */
+/* Media Desktop > min 1024px */
 
 /********* Navbar **********/
 .navbar {
@@ -184,10 +173,8 @@ footer {
   color: var(--magenta);
 }
 
-/* Media Tablet */
+/*********** Media Tablet ***********/
 @media only screen and (max-width: 1024px) {
-  body {
-  }
   /********** Product BOX **********/
 
   .box {

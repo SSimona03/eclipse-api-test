@@ -44,14 +44,14 @@ const Card = ({ arrayData, time }) => {
 
 
     return (
-        <div>
+        <div className="">
             {arrayData.map(eachProduct => {
                 const priceDiscounted = eachProduct.price - eachProduct.price * (eachProduct.discountPercentage / 100);
                 const newPrice = parseFloat(priceDiscounted).toFixed(2);
                 const discount = parseFloat(eachProduct.price - newPrice).toFixed(2);
                 const image = eachProduct.thumbnail;
                 return (
-                    <div key={'product-' + eachProduct.id} className={((eachProduct.rating == firstCardRating) ? " border-black box-recommended " : " ") + "relative box border rounded-2xl p-4 hover: cursor-pointer  md:max-w-[700px] lg:max-w-[1200px]"}>
+                    <div key={'product-' + eachProduct.id} className={((eachProduct.rating == firstCardRating) ? " border-black box-recommended " : " ") + "relative box border rounded-2xl p-4 hover: cursor-pointer  md:max-w-[700px] lg:max-w-[1200px] overflow-hidden"}>
                         {(eachProduct.rating == firstCardRating) ?
                             <div className="absolute recommended px-2 py-0.5 ml-10 bg-zinc-700 text-white">
                                 Eclipse recommended
