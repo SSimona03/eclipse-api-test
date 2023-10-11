@@ -7,10 +7,10 @@ import React, { useEffect, useState } from "react";
 const REFRESH_TIME = 3 * 60 * 1000;
 
 export default function Home() {
-  const [data, setData] = useState({});
-  const [products, setProducts] = useState([]);
-  const [tenProd, setTenProd] = useState([]);
-  const [storedTime, setStoredTime] = useState(0);
+  const [data, setData] = useState({}); //stores row data from api
+  const [products, setProducts] = useState([]); //storesthe data that is under products
+  const [tenProd, setTenProd] = useState([]); //stores 10 unique products each time re-renderd and without Apple brand
+  const [storedTime, setStoredTime] = useState(0); //stores the local storage time and I wanted to pass as props to Card comp
 
   //***** Time  Remove data from localStorage *****
   const resetLocalStorage = () => {
@@ -25,19 +25,15 @@ export default function Home() {
     if (localStorageTime) setStoredTime(localStorageTime);
     if (now - localStorageTime > REFRESH_TIME) {
       resetLocalStorage();
-      console.log("Time has exceeded the future time.", now - localStorageTime);
+      //console.log("Time has exceeded the future time.", now - localStorageTime);
     }
   }, []);
 
-  //to prevent re-rendering
+  //to control re-rendering
   //get data from API
   useEffect(() => {
-    //get the data from api
     const fetchData = async () => {
-      const data = await fetch(`/api/data`, {
-        //save data cache for 3 minutes
-        //next: { revalidate: false | 0 | 180 },
-      });
+      const data = await fetch(`/api/data`, {});
       if (data.status === 200) {
         const results = await data.json();
         setData(results);
@@ -45,44 +41,49 @@ export default function Home() {
         setData("error");
       }
     };
-    // call the function
-    const result = fetchData().catch(console.error);
+    // call the fetch function
+    fetchData().catch(console.error);
   }, []);
 
-  //  get an array of data and only update when timer is done
+  //  get an array of data and it updates only if data is changed
   useEffect(() => {
-    const dataArray = Object.values(data);
+    const dataArray = Object.values(data); //gives an array containing the object properties
     setProducts(dataArray[0]); // Update the 'products' state with 'dataArray'
   }, [data]);
 
-  // move the code to set 'displayProducts' inside this useEffect
+  // it updates only if products is changed
+  // stored in localStorage : products and time
+  //
   useEffect(() => {
     const storedData = JSON.parse(localStorage.getItem("tenProd"));
-    const now = new Date().getTime();
+    const now = new Date().getTime(); //time and date
 
+    //if the storedData is present then setTenProd will get the products
     if (storedData) {
       setTenProd(storedData);
       return;
     }
-
+    //if products aren't present we cannot process the data further
     if (products && products.length > 0) {
       //remove apple products
-      const withoutApple = products.filter((prod) => prod.brand !== "Apple");
+      const withoutApple = products.filter(
+        (product) => product.brand !== "Apple"
+      );
 
       //get 10 random products and uniques
       const randomTenProducts = [];
 
       while (randomTenProducts.length < 10) {
-        const number = Math.floor(Math.random() * withoutApple.length);
+        const numberIndex = Math.floor(Math.random() * withoutApple.length); //rounds down
 
-        if (!randomTenProducts.includes(withoutApple[number])) {
-          randomTenProducts.push(withoutApple[number]);
+        if (!randomTenProducts.includes(withoutApple[numberIndex])) {
+          randomTenProducts.push(withoutApple[numberIndex]);
         }
       }
       let arraySortbyRating = randomTenProducts.sort(
         (a, b) => parseFloat(b.rating) - parseFloat(a.rating)
       );
-
+      //storing in localStorage the data and current time
       localStorage.setItem("tenProd", JSON.stringify(arraySortbyRating));
       localStorage.setItem("time", now);
       setStoredTime(now);
