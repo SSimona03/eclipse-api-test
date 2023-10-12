@@ -11,12 +11,13 @@ export default function Home() {
   const [products, setProducts] = useState([]); //storesthe data that is under products
   const [tenProd, setTenProd] = useState([]); //stores 10 unique products each time re-renderd and without Apple brand
   const [storedTime, setStoredTime] = useState(0); //stores the local storage time and I wanted to pass as props to Card comp
+  const [productsAvailable, setProductsAvailable] = useState(true);
 
   //***** Time  Remove data from localStorage *****
   const resetLocalStorage = () => {
     localStorage.removeItem("tenProd");
     localStorage.removeItem("time");
-    console.log("deleted");
+    //console.log("deleted");
   };
 
   useEffect(() => {
@@ -64,42 +65,52 @@ export default function Home() {
       return;
     }
     //if products aren't present we cannot process the data further
-    if (products && products.length > 0) {
+    if (products?.length) {
       //remove apple products
       const withoutApple = products.filter(
-        (product) => product.brand !== "Apple"
+        (product) => product.brand.toLowerCase() !== "apple"
       );
 
       //get 10 random products and uniques
       const randomTenProducts = [];
+      if (withoutApple.length >= 10) {
+        while (randomTenProducts.length < 10) {
+          const numberIndex = Math.floor(Math.random() * withoutApple.length); //rounds down
 
-      while (randomTenProducts.length < 10) {
-        const numberIndex = Math.floor(Math.random() * withoutApple.length); //rounds down
-
-        if (!randomTenProducts.includes(withoutApple[numberIndex])) {
-          randomTenProducts.push(withoutApple[numberIndex]);
+          if (!randomTenProducts.includes(withoutApple[numberIndex])) {
+            randomTenProducts.push(withoutApple[numberIndex]);
+          }
         }
+        let arraySortbyRating = randomTenProducts.sort(
+          (a, b) => parseFloat(b.rating) - parseFloat(a.rating)
+        );
+        //storing in localStorage the data and current time
+        localStorage.setItem("tenProd", JSON.stringify(arraySortbyRating));
+        localStorage.setItem("time", now);
+        setStoredTime(now);
+        setTenProd(arraySortbyRating);
+        setProductsAvailable(true);
+      } else {
+        setProductsAvailable(false);
       }
-      let arraySortbyRating = randomTenProducts.sort(
-        (a, b) => parseFloat(b.rating) - parseFloat(a.rating)
-      );
-      //storing in localStorage the data and current time
-      localStorage.setItem("tenProd", JSON.stringify(arraySortbyRating));
-      localStorage.setItem("time", now);
-      setStoredTime(now);
-      setTenProd(arraySortbyRating);
     }
   }, [products]);
 
-  return (
-    <div className=" home-container flex gap-5 flex-col p-5">
-      {tenProd && tenProd.length > 0 ? (
-        // tenProd.map((prod) => <Card key={prod.id} arrayData={prod} />)
-        <Card arrayData={tenProd} time={storedTime} />
-      ) : (
-        // You can add a loading indicator or handle the case where displayProducts is falsy
-        <p>Loading...</p>
-      )}
-    </div>
-  );
+  if (productsAvailable) {
+    return (
+      <div className=" home-container flex gap-5 flex-col p-5">
+        {productsAvailable && tenProd?.length ? (
+          // tenProd.map((prod) => <Card key={prod.id} arrayData={prod} />)
+          <Card arrayData={tenProd} time={storedTime} />
+        ) : (
+          // You can add a loading indicator or handle the case where displayProducts is falsy
+          <p>Loading...</p>
+        )}
+      </div>
+    );
+  } else {
+    {
+      return <p className=" home-container p-5">Under 10 products available</p>;
+    }
+  }
 }

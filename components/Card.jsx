@@ -84,7 +84,6 @@ const Card = ({ arrayData, time }) => {
                                             return <i key={'product-' + eachProduct.id + '-star' + indexNumer} className="fa-regular fa-star fa-xs text-yellow-500"></i>
                                         }
 
-
                                     })
                                 }
 
